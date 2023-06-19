@@ -4,10 +4,11 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import spring.study.shop.domain.vo.Address;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,10 +16,15 @@ import javax.persistence.Id;
 @EqualsAndHashCode
 public class Member {
     @Id @GeneratedValue
+    @Column(name = "member_id")
     private Long id;
-    private String username;
+    private String name;
+    @Embedded
+    private Address address;
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
 
-    public Member(String username) {
-        this.username = username;
+    public Member(String name) {
+        this.name = name;
     }
 }
