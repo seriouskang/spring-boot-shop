@@ -1,5 +1,6 @@
 package spring.study.shop.domain.entity;
 
+import lombok.Setter;
 import spring.study.shop.domain.entity.item.Item;
 
 import javax.persistence.*;
@@ -19,9 +20,15 @@ public class Category {
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<Item> items = new ArrayList<>();
+    @Setter
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
     @OneToMany(mappedBy = "parent")
-    private List<Category> children;
+    private List<Category> children = new ArrayList<>();
+
+    public void addChildCategory(Category category) {
+        this.children.add(category);
+        category.setParent(this);
+    }
 }

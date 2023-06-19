@@ -1,5 +1,6 @@
 package spring.study.shop.domain.entity;
 
+import lombok.Setter;
 import spring.study.shop.domain.entity.item.Item;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class OrderItem {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
+    @Setter
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
