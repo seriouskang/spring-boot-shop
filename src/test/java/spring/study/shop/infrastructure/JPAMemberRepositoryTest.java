@@ -26,11 +26,11 @@ class JPAMemberRepositoryTest {
         Member member = new Member("test_member");
 
         // when
-        Long savedId = memberRepository.save(member);
+        memberRepository.save(member);
         entityManager.flush();
         entityManager.clear();
 
         // then
-        assertThat(memberRepository.find(savedId)).isEqualTo(member);
+        assertThat(memberRepository.find(member.getId())).hasValue(member);
     }
 }
